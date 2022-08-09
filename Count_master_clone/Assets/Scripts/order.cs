@@ -63,6 +63,15 @@ public class order : MonoBehaviour
 
                 gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (0.5f + 1.5f / (newMemberSpawn.members.Count)));
                 //isNeedOrder = true;
+
+                if (Vector3.Magnitude(gameObject.transform.position - bossBattle.bossPosition) < 5)
+                {
+                    gameObject.GetComponent<Animator>().SetBool("inBattle", true);
+                    gameObject.GetComponent<Animator>().SetFloat("attack", 0);
+
+                    var membersRotation = new Vector3(bossBattle.bossPosition.x, gameObject.transform.position.y, bossBattle.bossPosition.z) - gameObject.transform.position;
+                    gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(membersRotation, Vector3.up), 10f * Time.deltaTime);
+                }
             }
 
         }

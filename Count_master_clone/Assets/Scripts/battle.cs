@@ -42,8 +42,8 @@ public class battle : MonoBehaviour
                         
 
                         
-                        player.transform.position = Vector3.Lerp(player.transform.position, enemy_.transform.position, Time.deltaTime * 0.06f /(enemy.enemies.Count + newMemberSpawn.members.Count));
-                        enemy_.transform.position = Vector3.Lerp(enemy_.transform.position, player.transform.position, Time.deltaTime * 0.06f /(enemy.enemies.Count + newMemberSpawn.members.Count));
+                        player.transform.position = Vector3.Lerp(player.transform.position, enemy_.transform.position, Time.deltaTime * 0.3f /(enemy.enemies.Count + newMemberSpawn.members.Count));
+                        enemy_.transform.position = Vector3.Lerp(enemy_.transform.position, player.transform.position, Time.deltaTime * 0.3f /(enemy.enemies.Count + newMemberSpawn.members.Count));
 
                         foreach (var x in enemy.enemies)
                         {
@@ -158,7 +158,7 @@ public class battle : MonoBehaviour
                     if(enemy.enemies.ElementAt(i).name == gameObject.name)
                     {
                         
-                        if(enemy.enemies.Count == 1)
+                        if(enemy.enemies.Count <= 1)
                         {
                             PlayerController.isbattle = false;
                             order.isNeedOrder = true;

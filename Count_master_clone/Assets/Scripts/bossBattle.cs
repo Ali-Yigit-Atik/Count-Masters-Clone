@@ -13,6 +13,10 @@ public class bossBattle : MonoBehaviour
     public static bool isRun = false;
     public static bool isAttack = false;
     private int attaackMode;
+    public static Vector3 bossPosition; // Bazý teamMember'lar dövüþ esnasýnda koþmaya devam ediyordu bunu düzeltmek için direk teammember içinde bulunan
+                                        // bir script üzerinden(order) animasyon ayarý yapmak için bossPosition'o oluþturdum. Ayrýca yine bazý teamMember'lar
+                                        // doðru yöne bakmýyordu bunun içinde order scripti üzerinden Quaternion.Slerp komutuyla vucut poziyonu ve bakýþ açýsý
+                                        //tanýmladým
 
 
     private bool LockOnTarget = false;
@@ -28,7 +32,7 @@ public class bossBattle : MonoBehaviour
     void Update()
     {
         bossHealthCount.text = bossHealth.ToString();
-
+        bossPosition = transform.position;
 
         //for (int i = 0; i < newMemberSpawn.members.Count; i++)
         //{
@@ -101,12 +105,18 @@ public class bossBattle : MonoBehaviour
                     //bossAnimator.SetFloat("battleMode", 0);
                     bossAnimator.SetInteger("attackMode", 0);
 
-                    transform.position = Vector3.MoveTowards(transform.position, target.position, 1f * Time.deltaTime);
-                    player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, Time.fixedDeltaTime * 0.2f);
+                    //transform.position = Vector3.MoveTowards(transform.position, target.position, 1f * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 1f * Time.deltaTime);
+                    player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, Time.deltaTime * 0.2f);
                 }
 
-                if (stickManDistance.sqrMagnitude < 3.2 * 3.2)
+                if (stickManDistance.sqrMagnitude < 3.5 * 3.5)
+                {
                     LockOnTarget = true;
+                    PlayerController.isbattle = true;
+
+                    
+                }
 
             }
 
@@ -131,6 +141,8 @@ public class bossBattle : MonoBehaviour
                 member.GetComponent<Animator>().SetFloat("attack", 0);
             }
 
+
+
             //bossAnimator.SetFloat("battleMode", attaackMode);
             //StartCoroutine(attack());
             bossAnimator.SetInteger("attackMode", Random.Range(1, 4));
@@ -141,27 +153,27 @@ public class bossBattle : MonoBehaviour
 
     }
 
-    IEnumerator attack()
-    {
-        //yield return new WaitForSeconds(3f);
-        //bossAnimator.SetFloat("battleMode", 1);
-        //yield return new WaitForSeconds(6f);
-        //bossAnimator.SetFloat("battleMode", 2);
-        //yield return new WaitForSeconds(6f);
-        //bossAnimator.SetFloat("battleMode", 3);
-        //yield return new WaitForSeconds(6f);
-
-        yield return new WaitForSeconds(3f);
-
-        //bossAnimator.SetInteger("attackMode", Random.Range(0, 3));
-        //attaackMode = Random.Range(1, 4);
-
-        //yield return new WaitForSeconds(4f);
-        //bossAnimator.SetFloat("battleMode", Random.Range(1,4));
-
-
-
-
-    }
+    //IEnumerator attack()
+    //{
+    //    //yield return new WaitForSeconds(3f);
+    //    //bossAnimator.SetFloat("battleMode", 1);
+    //    //yield return new WaitForSeconds(6f);
+    //    //bossAnimator.SetFloat("battleMode", 2);
+    //    //yield return new WaitForSeconds(6f);
+    //    //bossAnimator.SetFloat("battleMode", 3);
+    //    //yield return new WaitForSeconds(6f);
+    //
+    //    yield return new WaitForSeconds(3f);
+    //
+    //    //bossAnimator.SetInteger("attackMode", Random.Range(0, 3));
+    //    //attaackMode = Random.Range(1, 4);
+    //
+    //    //yield return new WaitForSeconds(4f);
+    //    //bossAnimator.SetFloat("battleMode", Random.Range(1,4));
+    //
+    //
+    //
+    //
+    //}
 
 }

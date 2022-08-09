@@ -39,7 +39,7 @@ public class spawners : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("teamMember") && isGateActive && newMemberSpawn.members.Count<100 && gameObject.CompareTag("spawner"))
+        if (other.CompareTag("teamMember") && isGateActive  && gameObject.CompareTag("spawner"))
         {
             spawners_.enabled = false;
             otherSpawner.tag = "Untagged";
@@ -72,8 +72,8 @@ public class spawners : MonoBehaviour
     {
         isGateActive = false;
         avoidSpawnBug = true;
-        yield return new WaitForSeconds(0.35f);
-        yield return new WaitForSeconds(1.50f);
-        isGateActive = true;
+        
+        yield return new WaitForSeconds(1.5f);
+        //isGateActive = true;
     }
 }

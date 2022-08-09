@@ -88,7 +88,7 @@ public class obstacles : MonoBehaviour
 
     IEnumerator needOrder()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         order.isNeedOrder = true;
         Debug.Log("düzgün çalýþýyor");
     }
