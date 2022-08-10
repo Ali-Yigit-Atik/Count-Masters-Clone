@@ -5,6 +5,15 @@ using UnityEngine;
 public class order : MonoBehaviour
 {
     public static bool isNeedOrder = true;
+    private Animator memberAnimator;
+
+    public void Start()
+    {
+        if (gameObject.CompareTag("teamMember"))
+        {
+            memberAnimator = GetComponent<Animator>();
+        }
+    }
     private void Update()
     {
 
@@ -61,16 +70,30 @@ public class order : MonoBehaviour
             if (gameObject.CompareTag("teamMember"))
             {
 
-                gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (0.5f + 1.5f / (newMemberSpawn.members.Count)));
-                //isNeedOrder = true;
-
-                if (Vector3.Magnitude(gameObject.transform.position - bossBattle.bossPosition) < 5)
+                if (bossBattle.isBossDead == false)
                 {
-                    gameObject.GetComponent<Animator>().SetBool("inBattle", true);
-                    gameObject.GetComponent<Animator>().SetFloat("attack", 0);
+                    gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (0.5f + 1.5f / (newMemberSpawn.members.Count)));
+                    //isNeedOrder = true;
+                }
+
+                if (  bossBattle.LockOnTarget  )//Vector3.Magnitude(gameObject.transform.position - bossBattle.bossPosition) < 5)
+                {
+                    memberAnimator.SetBool("inBattle", true);
+                    memberAnimator.SetFloat("attack", 0);
 
                     var membersRotation = new Vector3(bossBattle.bossPosition.x, gameObject.transform.position.y, bossBattle.bossPosition.z) - gameObject.transform.position;
                     gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(membersRotation, Vector3.up), 10f * Time.deltaTime);
+                }
+
+                if (bossBattle.isBossDead)
+                {
+                    memberAnimator.SetFloat("attack", 2);
+
+                    var membersRotation2 = new Vector3(Camera.main.transform.position.x, gameObject.transform.position.y, Camera.main.transform.position.z) - gameObject.transform.position;
+                    gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(membersRotation2, Vector3.up), 10f * Time.deltaTime);
+
+                    
+
                 }
             }
 

@@ -19,6 +19,7 @@ TagManager:
   - bossRunArea
   - bossAttackArea
   - boss
+  - bossHitArea
   layers:
   - Default
   - TransparentFX
