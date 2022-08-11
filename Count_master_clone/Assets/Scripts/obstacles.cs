@@ -8,7 +8,7 @@ public class obstacles : MonoBehaviour
     public bool isRightHammer = false;
     private GameObject boss;
     private int returnTime = 0;
-    private int firstHealthBoss;
+    private float firstHealthBoss;
 
     private void Start()
     {
@@ -180,11 +180,15 @@ public class obstacles : MonoBehaviour
              newMemberSpawn.members.RemoveAt(i);
              a.gameObject.SetActive(false);
          }
-            
 
 
+        if (boss.GetComponent<bossBattle>().bossHealth <= 0)
+        {
+            a.tag = "teamMember";            
         
-        
+        }
+
+
 
 
     }

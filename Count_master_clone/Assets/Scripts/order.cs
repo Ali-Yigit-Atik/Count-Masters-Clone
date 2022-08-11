@@ -7,8 +7,20 @@ public class order : MonoBehaviour
     public static bool isNeedOrder = true;
     private Animator memberAnimator;
 
+    private GameObject enemy_;
+    private List<GameObject> enemies_;
+
     public void Start()
     {
+
+        
+
+        if (gameObject.CompareTag("soldier"))
+        {
+            enemy_ = gameObject.transform.parent.gameObject;
+            enemies_ = enemy_.gameObject.GetComponent<enemy>().enemies;
+        }
+
         if (gameObject.CompareTag("teamMember"))
         {
             memberAnimator = GetComponent<Animator>();
@@ -20,7 +32,16 @@ public class order : MonoBehaviour
         if (gameObject.CompareTag("soldier"))
         {
 
-            gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (0.8f + 1.5f / (enemy.enemies.Count)));
+            //gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (0.8f + 1.5f / (enemies_.Count)));
+
+            if (enemies_.Count < 4)
+            {
+                gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * 4f);
+            }
+            else
+            {
+                gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * 1f);
+            }
             //isNeedOrder = true;
         }
 
@@ -72,7 +93,9 @@ public class order : MonoBehaviour
 
                 if (bossBattle.isBossDead == false)
                 {
-                    gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (0.5f + 1.5f / (newMemberSpawn.members.Count)));
+                    gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (0.5f + 1.8f / (newMemberSpawn.members.Count)));
+
+                    //gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * 0.8f );
                     //isNeedOrder = true;
                 }
 

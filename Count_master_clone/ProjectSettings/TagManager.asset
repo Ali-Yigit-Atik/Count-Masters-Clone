@@ -20,6 +20,7 @@ TagManager:
   - bossAttackArea
   - boss
   - bossHitArea
+  - healthBar
   layers:
   - Default
   - TransparentFX

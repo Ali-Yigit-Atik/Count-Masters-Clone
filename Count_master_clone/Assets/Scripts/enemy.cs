@@ -6,7 +6,7 @@ using TMPro;
 public class enemy : MonoBehaviour
 {
     public GameObject enemySoldier; // spawn edilecek game obje
-    public static List<GameObject> enemies = new List<GameObject>();
+    public List<GameObject> enemies = new List<GameObject>();
     public float UnitSphereRatio = 2.5f;    
     private GameObject newEnemy;
     private float startYPosition;

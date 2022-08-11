@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.UI;
 
 public class bossBattle : MonoBehaviour
 {
+
+    private Image healthBar;
+    private float maxHealthPercent = 100;
+    private float HealthPercent;
     public TextMeshProUGUI bossHealthCount;
-    public int bossHealth;
+    public float bossHealth; //
     public static Animator bossAnimator;
     private GameObject player;
     public static bool isRun = false;
@@ -25,12 +30,18 @@ public class bossBattle : MonoBehaviour
     private GameObject bossHitArea;
     private int beforeAttacked = 0;
     private GameObject closetsEnemy;
-    private Vector3 minumumstickManDistance = new Vector3(15,15,15) ;
+    private Vector3 minumumstickManDistance = new Vector3(15,15,15) ; //
 
     public static bool isBossDead = false;
 
     void Start()
     {
+
+
+        HealthPercent = maxHealthPercent / bossHealth;
+
+        healthBar = GameObject.FindGameObjectWithTag("healthBar").GetComponent<Image>();
+
         bossAnimator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         bossHitArea = GameObject.FindGameObjectWithTag("bossHitArea");
@@ -42,7 +53,9 @@ public class bossBattle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bossHealthCount.text = bossHealth.ToString();
+        //bossHealthCount.text = "% "+(bossHealth* HealthPercent).ToString();
+        bossHealthCount.text =  (bossHealth).ToString();
+        healthBar.fillAmount = (bossHealth * HealthPercent)/100;
         bossPosition = transform.position;
 
         //for (int i = 0; i < newMemberSpawn.members.Count; i++)
@@ -120,8 +133,8 @@ public class bossBattle : MonoBehaviour
                     bossAnimator.SetInteger("attackMode", 0);
 
                     //transform.position = Vector3.MoveTowards(transform.position, target.position, 1f * Time.deltaTime);
-                    transform.position = Vector3.MoveTowards(transform.position, player.transform.position + new Vector3(0, 0, 1.5f), 0.8f * Time.deltaTime);
-                    player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, Time.deltaTime * 0.2f);
+                    transform.position = Vector3.MoveTowards(transform.position, player.transform.position + new Vector3(0, 0, 1.5f), 0.6f * Time.deltaTime);
+                    player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, Time.deltaTime * 0.4f);
                 }
 
                 if (stickManDistance.sqrMagnitude < 3.5 * 3.5)

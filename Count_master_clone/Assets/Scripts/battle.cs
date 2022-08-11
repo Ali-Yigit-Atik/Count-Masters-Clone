@@ -8,14 +8,19 @@ public class battle : MonoBehaviour
     private GameObject player;
     private GameObject enemy_;
     private Animator soldierAnimator;
+    private List<GameObject> enemies_;
 
-    
+
+
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        enemy_ = GameObject.FindGameObjectWithTag("enemy");
+        //enemy_ = GameObject.FindGameObjectWithTag("enemy");
+        enemy_ = gameObject.transform.parent.gameObject;
         soldierAnimator = GetComponent<Animator>();
+
+        enemies_ = enemy_.gameObject.GetComponent<enemy>().enemies;
     }
 
     public void Update()
@@ -25,27 +30,33 @@ public class battle : MonoBehaviour
 
         if(newMemberSpawn.members.Count <= 0)
         {
-            soldierAnimator.SetBool("run", false);
+            //soldierAnimator.SetBool("run", false);
+            StartCoroutine(DontRun());
         }
     
         for(int i =0; i<newMemberSpawn.members.Count; i++)
         {
-            for (int j = 0; i < enemy.enemies.Count; j++)
+            for (int j = 0; i < enemies_.Count; j++)
             {
-                if(Vector3.Magnitude(newMemberSpawn.members[i].transform.position - enemy.enemies[j].transform.position) < 7)
+                if(Vector3.Magnitude(newMemberSpawn.members[i].transform.position - enemies_[j].transform.position) < 8)
                 {
     
                     
     
-                    if (newMemberSpawn.members.Count > 0 && enemy.enemies.Count > 0) // && enemy.enemies[j] != null && newMemberSpawn.members[i] != null
+                    if (newMemberSpawn.members.Count > 0 && enemies_.Count > 0) // && enemy.enemies[j] != null && newMemberSpawn.members[i] != null
                     {
-                        
 
-                        
-                        player.transform.position = Vector3.Lerp(player.transform.position, enemy_.transform.position, Time.deltaTime * 0.3f /(enemy.enemies.Count + newMemberSpawn.members.Count));
-                        enemy_.transform.position = Vector3.Lerp(enemy_.transform.position, player.transform.position, Time.deltaTime * 0.3f /(enemy.enemies.Count + newMemberSpawn.members.Count));
 
-                        foreach (var x in enemy.enemies)
+
+                        player.transform.position = Vector3.Lerp(player.transform.position, enemy_.transform.position, Time.deltaTime * (0.00001f + 1f /((enemies_.Count + newMemberSpawn.members.Count))));
+                        enemy_.transform.position = Vector3.Lerp(enemy_.transform.position, player.transform.position, Time.deltaTime * (0.00001f+ 1f /((enemies_.Count + newMemberSpawn.members.Count))));
+
+                        //player.transform.position = Vector3.Lerp(player.transform.position, enemy_.transform.position, Time.deltaTime * 0.03f );
+                        //enemy_.transform.position = Vector3.Lerp(enemy_.transform.position, player.transform.position+ new Vector3(0,0,0f), Time.deltaTime * 0.03f );
+
+
+
+                        foreach (var x in enemies_)
                         {
                             x.GetComponent<Animator>().SetBool("run", true);
                         }
@@ -153,17 +164,17 @@ public class battle : MonoBehaviour
                 }
                 
 
-                for(int i=0; 0<enemy.enemies.Count; i++)
+                for(int i=0; 0< enemies_.Count; i++)
                 {
-                    if(enemy.enemies.ElementAt(i).name == gameObject.name)
+                    if(enemies_.ElementAt(i).name == gameObject.name)
                     {
                         
-                        if(enemy.enemies.Count <= 1)
+                        if(enemies_.Count <= 1)
                         {
                             PlayerController.isbattle = false;
                             order.isNeedOrder = true;
                         }
-                        enemy.enemies.RemoveAt(i);
+                        enemies_.RemoveAt(i);
                         gameObject.SetActive(false);
                         break;
                     }
@@ -171,5 +182,11 @@ public class battle : MonoBehaviour
                 
             }
         }
+    }
+
+    IEnumerator DontRun()
+    {
+        soldierAnimator.SetBool("run", false);
+        yield return new WaitForSeconds(0.7f);
     }
 }
