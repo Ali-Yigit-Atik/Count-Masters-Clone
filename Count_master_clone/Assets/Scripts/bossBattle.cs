@@ -116,7 +116,7 @@ public class bossBattle : MonoBehaviour
 
 
 
-        if (newMemberSpawn.members.Count > 0)
+        if (newMemberSpawn.members.Count > 0 || isBossDead ==false)
             foreach (var stickMan in newMemberSpawn.members)
             {
                 var stickManDistance = stickMan.transform.position - transform.position;
@@ -133,8 +133,8 @@ public class bossBattle : MonoBehaviour
                     bossAnimator.SetInteger("attackMode", 0);
 
                     //transform.position = Vector3.MoveTowards(transform.position, target.position, 1f * Time.deltaTime);
-                    transform.position = Vector3.MoveTowards(transform.position, player.transform.position + new Vector3(0, 0, 1.5f), 0.6f * Time.deltaTime);
-                    player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, Time.deltaTime * 0.4f);
+                    transform.position = Vector3.Lerp(transform.position, player.transform.position + new Vector3(0, 0, 1.5f), 0.05f * Time.deltaTime);
+                    player.transform.position = Vector3.Lerp(player.transform.position, transform.position, Time.deltaTime * 0.05f);
                 }
 
                 if (stickManDistance.sqrMagnitude < 3.5 * 3.5)

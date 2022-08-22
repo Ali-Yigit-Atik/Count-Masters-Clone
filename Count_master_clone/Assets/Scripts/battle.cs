@@ -10,8 +10,8 @@ public class battle : MonoBehaviour
     private Animator soldierAnimator;
     private List<GameObject> enemies_;
 
-
-
+    private int battleDistance;
+    
 
     private void Start()
     {
@@ -33,12 +33,25 @@ public class battle : MonoBehaviour
             //soldierAnimator.SetBool("run", false);
             StartCoroutine(DontRun());
         }
-    
-        for(int i =0; i<newMemberSpawn.members.Count; i++)
+
+        if(newMemberSpawn.members.Count < 30) 
+        {
+            battleDistance = 8;
+        }
+        if (newMemberSpawn.members.Count >= 30 && newMemberSpawn.members.Count < 70)
+        {
+            battleDistance = 11;
+        }
+        if (newMemberSpawn.members.Count >= 70)
+        {
+            battleDistance = 13;
+        }
+
+        for (int i =0; i<newMemberSpawn.members.Count; i++)
         {
             for (int j = 0; i < enemies_.Count; j++)
             {
-                if(Vector3.Magnitude(newMemberSpawn.members[i].transform.position - enemies_[j].transform.position) < 8)
+                if(Vector3.Magnitude(newMemberSpawn.members[i].transform.position - enemies_[j].transform.position) < battleDistance)
                 {
     
                     
@@ -48,8 +61,8 @@ public class battle : MonoBehaviour
 
 
 
-                        player.transform.position = Vector3.Lerp(player.transform.position, enemy_.transform.position, Time.deltaTime * (0.00001f + 1f /((enemies_.Count + newMemberSpawn.members.Count))));
-                        enemy_.transform.position = Vector3.Lerp(enemy_.transform.position, player.transform.position, Time.deltaTime * (0.00001f+ 1f /((enemies_.Count + newMemberSpawn.members.Count))));
+                        player.transform.position = Vector3.Lerp(player.transform.position, enemy_.transform.position, Time.deltaTime * (0.00001f + 2f /((enemies_.Count + newMemberSpawn.members.Count)/2*5)));
+                        enemy_.transform.position = Vector3.Lerp(enemy_.transform.position, player.transform.position, Time.deltaTime * (0.00001f+ 2f /((enemies_.Count + newMemberSpawn.members.Count)/2*5)));
 
                         //player.transform.position = Vector3.Lerp(player.transform.position, enemy_.transform.position, Time.deltaTime * 0.03f );
                         //enemy_.transform.position = Vector3.Lerp(enemy_.transform.position, player.transform.position+ new Vector3(0,0,0f), Time.deltaTime * 0.03f );

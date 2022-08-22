@@ -30,6 +30,10 @@ public class enemy : MonoBehaviour
 
         enemyCount.text = enemies.Count.ToString();
 
+        if(enemies.Count <= 0 && enemyCount.enabled == true)
+        {
+            enemyCount.enabled = false;
+        }
         
 
     }

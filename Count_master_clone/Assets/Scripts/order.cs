@@ -34,9 +34,13 @@ public class order : MonoBehaviour
 
             //gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (0.8f + 1.5f / (enemies_.Count)));
 
-            if (enemies_.Count < 4)
+            if (enemies_.Count < 3 && newMemberSpawn.members.Count > 10)
             {
-                gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * 4f);
+                gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, -0.8f), Time.deltaTime * 5f);
+            }
+            else if (enemies_.Count < 3 && newMemberSpawn.members.Count > 5)
+            {
+                gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, -0.5f), Time.deltaTime * 5f);
             }
             else
             {
@@ -93,7 +97,16 @@ public class order : MonoBehaviour
 
                 if (bossBattle.isBossDead == false)
                 {
-                    gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (0.5f + 1.8f / (newMemberSpawn.members.Count)));
+                    
+                    if(newMemberSpawn.members.Count < 5 )
+                    {
+                        gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (1f + 2.5f / (newMemberSpawn.members.Count)));
+                    }
+                    else
+                    {
+                        gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * (0.5f + 1.8f / (newMemberSpawn.members.Count)));
+                    }
+                    
 
                     //gameObject.transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * 0.8f );
                     //isNeedOrder = true;
@@ -110,11 +123,7 @@ public class order : MonoBehaviour
 
                 if (bossBattle.isBossDead)
                 {
-                    memberAnimator.SetFloat("attack", 2);
-
-                    var membersRotation2 = new Vector3(Camera.main.transform.position.x, gameObject.transform.position.y, Camera.main.transform.position.z) - gameObject.transform.position;
-                    gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(membersRotation2, Vector3.up), 10f * Time.deltaTime);
-
+                    StartCoroutine(winPose());
                     
 
                 }
@@ -138,5 +147,15 @@ public class order : MonoBehaviour
         yield return new WaitForSeconds(3f);
         isNeedOrder = false;
         Debug.Log("order çalýþýyor");
+    }
+
+    IEnumerator winPose()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        memberAnimator.SetFloat("attack", 2);
+
+        var membersRotation2 = new Vector3(Camera.main.transform.position.x, gameObject.transform.position.y, Camera.main.transform.position.z) - gameObject.transform.position;
+        gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(membersRotation2, Vector3.up), 10f * Time.deltaTime);
     }
 }
