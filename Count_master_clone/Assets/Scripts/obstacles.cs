@@ -6,14 +6,13 @@ using DG.Tweening; // Dotween kütüphansei
 public class obstacles : MonoBehaviour
 {
     public bool isRightHammer = false;
-    private GameObject boss;
-    private int returnTime = 0;
-    private float firstHealthBoss;
+    private GameObject boss;    
+    
 
     private void Start()
     {
         boss = GameObject.FindGameObjectWithTag("boss");
-        firstHealthBoss = boss.GetComponent<bossBattle>().bossHealth;
+        
 
 
         if (gameObject.CompareTag("hammer"))
@@ -85,22 +84,7 @@ public class obstacles : MonoBehaviour
             if (other.gameObject.CompareTag("teamMember") && boss.GetComponent<bossBattle>().bossHealth >= 0)
             {
 
-                //if (bossBattle.bossAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1 && bossBattle.bossAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.5)
-                //{
-                //    other.gameObject.tag = "Untagged";
-                //
-                //    for (int i = 0; i < newMemberSpawn.members.Count; i++)
-                //    {
-                //        if (newMemberSpawn.members[i].name == other.gameObject.name)
-                //        {
-                //            newMemberSpawn.members.RemoveAt(i);
-                //            other.gameObject.SetActive(false);
-                //            break;
-                //        }
-                //    }
-                //    
-                //}
-
+                
 
                 other.gameObject.tag = "Untagged";
 
@@ -108,8 +92,7 @@ public class obstacles : MonoBehaviour
                 {
                     if (newMemberSpawn.members[i].name == other.gameObject.name)
                     {
-                        //newMemberSpawn.members.RemoveAt(i);
-                        //other.gameObject.SetActive(false);
+                        
                         StartCoroutine(deathTime(i, other.gameObject));
                         break;
                     }
@@ -153,17 +136,7 @@ public class obstacles : MonoBehaviour
 
     IEnumerator deathTime(int i, GameObject a)
     {
-        //if (bossBattle.bossAnimator.GetInteger("attackMode") == )
-        //{
-        //
-        //}
-
-        //if (boss.GetComponent<bossBattle>().bossHealth <= 0)
-        //{
-        //    a.gameObject.GetComponent<Animator>().SetFloat("attack", 2);
-        //}
-
-
+        
 
         yield return new WaitForSeconds(1.5f);
 

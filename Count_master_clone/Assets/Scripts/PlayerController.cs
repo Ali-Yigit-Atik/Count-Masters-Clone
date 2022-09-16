@@ -11,16 +11,12 @@ public class PlayerController : MonoBehaviour
     private bool dontMoveLeft_ = false;
     private bool dontMoveRight_ = false;
     public static bool isbattle = false;
-    private float startYPos;
+    
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   
 
-    // Update is called once per frame
+    
     void Update()
     {
         if (move == true && isbattle == false)
@@ -48,24 +44,24 @@ public class PlayerController : MonoBehaviour
                     if(newMemberSpawn.members[i].gameObject.transform.position.x > sweepPosition.x)
                     {
                         dontMoveLeft_ = true;
-                        //dontMoveRight = true;
+                        
                     }
                     else
                     {
                         dontMoveLeft_ = false;
-                        //dontMoveRight = false;
+                        
                     }
 
 
                     if (newMemberSpawn.members[i].gameObject.transform.position.x < sweepPosition.x)
                     {
                         dontMoveRight_ = true;
-                        //dontMoveLeft = true;
+                        
                     }
                     else
                     {
                         dontMoveRight_ = false;
-                        //dontMoveLeft = false;
+                        
                     }
 
 
@@ -80,7 +76,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (wall.dontMoveRight == true && dontMoveRight_ == true)
                 {
-                    //transform.position = Vector3.MoveTowards(transform.position, transform.position, Time.deltaTime * swipeSpeed);
+                    
                     transform.position = transform.position;
                     Debug.Log("right right");
                 }

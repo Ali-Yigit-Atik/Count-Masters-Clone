@@ -19,7 +19,7 @@ public class spawners : MonoBehaviour
     private spawners spawners_;
     public TextMeshProUGUI UISpawn;
     private bool avoidSpawnBug =false; //Bazen karakterler hem çarpma hemde toplama spawn alanýna çok hýzlý girebiliyor ve ikisinidende etkilenebilliyor
-                                       // Bundan kaçýnmak için yapýlan iþlemler arasýnda hesaplamalr için küçük bir zaman dilimi býraktým
+                                       // Bundan kaçýnmak için bir koþul koydum
 
     private void Start()
     {
@@ -43,7 +43,7 @@ public class spawners : MonoBehaviour
         {
             spawners_.enabled = false;
             otherSpawner.tag = "Untagged";
-            StartCoroutine("Gate");
+            Gate();
 
 
             if (avoidSpawnBug == true)
@@ -68,12 +68,10 @@ public class spawners : MonoBehaviour
     
     }
 
-    IEnumerator Gate()
+    private void Gate()
     {
         isGateActive = false;
         avoidSpawnBug = true;
         
-        yield return new WaitForSeconds(1.5f);
-        //isGateActive = true;
     }
 }

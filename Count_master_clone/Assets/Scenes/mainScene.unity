@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5026,7 +5026,6 @@ GameObject:
   - component: {fileID: 804102860}
   - component: {fileID: 804102859}
   - component: {fileID: 804102862}
-  - component: {fileID: 804102863}
   - component: {fileID: 804102864}
   m_Layer: 0
   m_Name: TeamMember
@@ -5128,18 +5127,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &804102863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 804102857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b847a0aca80b644f9516539ff792779, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &804102864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10558,6 +10545,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 870668974}
+    - target: {fileID: 1782908481, guid: 63bbf0ff20f08594abad17b0fbee1ed6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1253202459351847272, guid: 63bbf0ff20f08594abad17b0fbee1ed6, type: 3}
       propertyPath: m_RootOrder
       value: 4
