@@ -73,7 +73,7 @@ public class battle : MonoBehaviour
             PlayerController.isbattle = true;
             
             player.transform.position = Vector3.MoveTowards(player.transform.position, enemy_.transform.position, Time.deltaTime * 0.65f );
-            enemy_.transform.position = Vector3.MoveTowards(enemy_.transform.position, player.transform.position, Time.deltaTime * 0.65f );
+            enemy_.transform.position = Vector3.MoveTowards(enemy_.transform.position, player.transform.position, Time.deltaTime * 0.5f );
 
             foreach (var x in enemies_)
             {

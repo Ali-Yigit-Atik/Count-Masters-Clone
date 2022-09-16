@@ -126,7 +126,7 @@ public class bossBattle : MonoBehaviour
             var bossRotation = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z) - transform.position;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(bossRotation, Vector3.up), 10f * Time.deltaTime);
 
-            //transform.position = Vector3.Lerp(transform.position, player.transform.position + new Vector3(0, 0, 1.5f), 0.5f * Time.deltaTime);
+            
 
         }
     }
